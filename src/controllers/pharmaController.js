@@ -1,11 +1,25 @@
+import Pharmacies from '../modals/pharmaciesModal';
 
 exports.getPharmacies=(req,res)=>{
     res.send('get ALL')
 }
 
-exports.addPharmacy=(req,res)=>{
-    res.send('Add one')
-}
+exports.addPharmacy=async(req,res)=>{
+    try{
+        const newPharmacy=await Pharmacies.create(req.body);
+        res.status(201).json({
+            Pharmacy:{
+                newPharmacy
+            }
+        })
+    }
+    catch(err){
+        res.status(400).json({
+            status:'fail',
+            message:err
+        })
+    }
+  }
 
 exports.getPharmacy=(req,res)=>{
     res.send('get one')
